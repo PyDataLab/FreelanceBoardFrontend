@@ -46,7 +46,7 @@ export default function Home() {
 
   const fetchKworks = async () => {
     try {
-      const res = await fetch('http://localhost:3000/kwork');
+      const res = await fetch('https://freelanceboardbackend.onrender.com/kwork');
       if (!res.ok) throw new Error('Ошибка при загрузке данных');
       const data = await res.json();
       setKworks(data);
@@ -115,7 +115,7 @@ export default function Home() {
   const toggleFavorite = async (kwork: Kwork, favorite: boolean) => {
     try {
       const newStatus: Kwork['status'] = favorite ? 'favorite' : (kwork.reason !== '' ? 'reason' : 'new');
-      const res = await fetch(`http://localhost:3000/kwork/${kwork.id}`, {
+      const res = await fetch(`https://freelanceboardbackend.onrender.com/kwork/${kwork.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -134,7 +134,7 @@ export default function Home() {
     if (!confirm('Вы уверены, что хотите удалить эту задачу?')) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/kwork/${id}`, {
+      const res = await fetch(`https://freelanceboardbackend.onrender.com/kwork/${id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Ошибка при удалении задачи');
@@ -155,7 +155,7 @@ export default function Home() {
 
     try {
       if (editingId === null) {
-        const res = await fetch('http://localhost:3000/kwork', {
+        const res = await fetch('https://freelanceboardbackend.onrender.com/kwork', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title, description, price, link, status, reason }),
@@ -165,7 +165,7 @@ export default function Home() {
         const newTask = await res.json();
         setKworks((prev) => [...prev, newTask]);
       } else {
-        const res = await fetch(`http://localhost:3000/kwork/${editingId}`, {
+        const res = await fetch(`https://freelanceboardbackend.onrender.com/${editingId}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ title, description, price, status, link, reason }),
