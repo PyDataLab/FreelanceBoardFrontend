@@ -50,9 +50,14 @@ export default function Home() {
       if (!res.ok) throw new Error('Ошибка при загрузке данных');
       const data = await res.json();
       setKworks(data);
-    } catch (err: any) {
-      setError(err.message || 'Неизвестная ошибка');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Неизвестная ошибка');
+      }
     }
+
   };
 
   useEffect(() => {
